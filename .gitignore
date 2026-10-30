@@ -1,0 +1,8 @@
+node_modules/
+out/
+*.vsix
+.DS_Store
+
+# личные материалы к защите — не для репозитория
+ЗАЩИТА.md
+report/

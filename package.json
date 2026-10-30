@@ -1,0 +1,152 @@
+{
+  "name": "code-diary",
+  "displayName": "Code Diary",
+  "description": "Дневник программирования: учёт времени за кодом, языков, файлов и сессий фокуса с аккуратным дашбордом.",
+  "version": "1.0.0",
+  "publisher": "gvozdev-m3106",
+  "author": {
+    "name": "Гвоздев Матвей Георгиевич (М3106)"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "time tracking",
+    "statistics",
+    "productivity",
+    "dashboard"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeDiary.openDashboard",
+        "title": "Открыть дашборд",
+        "category": "Code Diary",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "codeDiary.setDailyGoal",
+        "title": "Задать цель на день",
+        "category": "Code Diary",
+        "icon": "$(target)"
+      },
+      {
+        "command": "codeDiary.togglePause",
+        "title": "Пауза / продолжить учёт",
+        "category": "Code Diary",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "codeDiary.exportReport",
+        "title": "Экспорт недельного отчёта (Markdown)",
+        "category": "Code Diary",
+        "icon": "$(export)"
+      },
+      {
+        "command": "codeDiary.generateDemoData",
+        "title": "Заполнить демо-данными",
+        "category": "Code Diary"
+      },
+      {
+        "command": "codeDiary.restoreBackup",
+        "title": "Восстановить данные из резервной копии",
+        "category": "Code Diary"
+      },
+      {
+        "command": "codeDiary.clearData",
+        "title": "Очистить все данные",
+        "category": "Code Diary"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codeDiary",
+          "title": "Code Diary",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "codeDiary": [
+        {
+          "id": "codeDiary.summary",
+          "name": "Сводка"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "codeDiary.openDashboard",
+          "when": "view == codeDiary.summary",
+          "group": "navigation@1"
+        },
+        {
+          "command": "codeDiary.togglePause",
+          "when": "view == codeDiary.summary",
+          "group": "navigation@2"
+        },
+        {
+          "command": "codeDiary.exportReport",
+          "when": "view == codeDiary.summary",
+          "group": "navigation@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Diary",
+      "properties": {
+        "codeDiary.dailyGoalMinutes": {
+          "type": "number",
+          "default": 120,
+          "minimum": 5,
+          "maximum": 1440,
+          "markdownDescription": "Цель на день в минутах. Прогресс виден в строке состояния и на дашборде."
+        },
+        "codeDiary.idleTimeoutMinutes": {
+          "type": "number",
+          "default": 2,
+          "minimum": 1,
+          "maximum": 30,
+          "markdownDescription": "Через сколько минут без действий сессия считается завершённой. Время простоя не засчитывается."
+        },
+        "codeDiary.focusSessionMinutes": {
+          "type": "number",
+          "default": 25,
+          "minimum": 5,
+          "maximum": 180,
+          "markdownDescription": "Минимальная длина непрерывной сессии, чтобы она считалась **сессией фокуса**."
+        },
+        "codeDiary.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Показывать время за сегодня в строке состояния."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test \"out/test/*.test.js\"",
+    "docs": "typedoc",
+    "package": "vsce package --allow-missing-repository --no-rewrite-relative-links"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.2.0",
+    "typedoc": "^0.28.0",
+    "typescript": "^5.6.0"
+  }
+}

@@ -1,0 +1,449 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Code Diary — API - v1.0.0</title><meta name="description" content="Documentation for Code Diary — API"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><script async src="assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="index.html" class="title">Code Diary — API - v1.0.0</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h1>Code Diary — API - v1.0.0</h1></div>
+<div class="tsd-panel tsd-typography"><h1 id="code-diary-документация-проекта" class="tsd-anchor-link">Code Diary — документация проекта<a href="#code-diary-документация-проекта" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p><strong>Плагин для Visual Studio Code</strong> · автор: Гвоздев Матвей Георгиевич, группа М3106</p>
+<p>Code Diary — «дневник программирования». Плагин незаметно фиксирует, когда и в каких
+файлах вы пишете код, и показывает статистику: время за день и период, языки, проекты,
+самые «горячие» файлы, распределение по часам суток, тепловую карту активности за год,
+серию дней подряд и долю времени в сессиях фокуса.</p>
+<blockquote>
+<p>Подробные страницы по каждому классу и функции сгенерированы TypeDoc из JSDoc-комментариев:
+папка <code>docs/api</code> (откройте <code>docs/api/index.html</code> в браузере; пересобрать — <code>npm run docs</code>).</p>
+</blockquote>
+<hr>
+<h2 id="содержание" class="tsd-anchor-link">Содержание<a href="#содержание" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ol>
+<li><a href="#1-%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Техническое задание</a></li>
+<li><a href="#2-%D0%BA%D0%B0%D0%BA-vs-code-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82-%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D1%8F">Как VS Code подключает расширения</a></li>
+<li><a href="#3-%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%BF%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0">Архитектура плагина</a></li>
+<li><a href="#4-%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82-%D1%83%D1%87%D1%91%D1%82%D0%B0-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8">Автомат учёта времени</a></li>
+<li><a href="#5-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D1%8B-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B8-%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B">Структуры данных и алгоритмы</a></li>
+<li><a href="#6-%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82-%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F">Формат хранения</a></li>
+<li><a href="#7-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D0%B8-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8">Команды и настройки</a></li>
+<li><a href="#8-%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA-%D1%82%D0%B5%D1%81%D1%82%D1%8B-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F">Сборка, запуск, тесты, документация</a></li>
+<li><a href="#9-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F">Структура репозитория</a></li>
+</ol>
+<hr>
+<h2 id="1-техническое-задание" class="tsd-anchor-link">1. Техническое задание<a href="#1-техническое-задание" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p><strong>Назначение.</strong> Помочь разработчику видеть, сколько времени он реально программирует,
+на чём и как сосредоточенно, без ручного запуска таймеров.</p>
+<p><strong>Функциональные требования</strong></p>
+<table>
+<thead>
+<tr>
+<th>№</th>
+<th>Требование</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ф1</td>
+<td>Автоматически учитывать время работы в редакторе по событиям: печать, перемещение курсора, прокрутка, переключение файлов, сохранение.</td>
+</tr>
+<tr>
+<td>Ф2</td>
+<td>Не засчитывать простой: если нет действий дольше таймаута (по умолчанию 2 мин), сессия завершается на последнем действии.</td>
+</tr>
+<tr>
+<td>Ф3</td>
+<td>Не засчитывать время, когда окно VS Code не в фокусе.</td>
+</tr>
+<tr>
+<td>Ф4</td>
+<td>Хранить статистику по дням: интервалы активности, время по языкам, файлам, проектам, часам суток, число напечатанных символов.</td>
+</tr>
+<tr>
+<td>Ф5</td>
+<td>Не удваивать время при нескольких открытых окнах VS Code.</td>
+</tr>
+<tr>
+<td>Ф6</td>
+<td>Показывать время за сегодня в строке состояния с прогрессом к дневной цели и текущей серией дней.</td>
+</tr>
+<tr>
+<td>Ф7</td>
+<td>Боковая панель «Сводка» на панели активности: сегодня, серия, фокус, скорость, топ языков и файлов (клик открывает файл).</td>
+</tr>
+<tr>
+<td>Ф8</td>
+<td>Дашборд в отдельной вкладке: ключевые показатели, шкала дня, столбцы по дням, тепловая карта за год, языки, время суток, файлы, проекты, итоги периода; выбор периода «Сегодня / 7 дней / 30 дней / Всё время»; подсказки при наведении.</td>
+</tr>
+<tr>
+<td>Ф9</td>
+<td>Дневная цель задаётся в свободном формате (<code>90</code>, <code>1:30</code>, <code>1ч 30м</code>, <code>2h</code>), один раз в день приходит уведомление о её достижении.</td>
+</tr>
+<tr>
+<td>Ф10</td>
+<td>Пауза учёта, экспорт недельного отчёта в Markdown.</td>
+</tr>
+<tr>
+<td>Ф11</td>
+<td>Демо-данные для показа, очистка данных, восстановление из резервной копии.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Нефункциональные требования</strong></p>
+<ul>
+<li>Оформление следует активной теме VS Code (светлой, тёмной, контрастной), минималистичное.</li>
+<li>Данные хранятся только локально, сеть не используется; страница дашборда работает со строгой CSP.</li>
+<li>Ядро логики не зависит от API VS Code и покрыто модульными тестами.</li>
+<li>Повреждённый файл данных не ломает плагин: он сохраняется отдельно, начинается новый дневник.</li>
+</ul>
+<hr>
+<h2 id="2-как-vs-code-подключает-расширения" class="tsd-anchor-link">2. Как VS Code подключает расширения<a href="#2-как-vs-code-подключает-расширения" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>VS Code построен так, что сторонний код никогда не выполняется в процессе интерфейса:</p>
+<pre><code class="mermaid"><span class="hl-0">flowchart LR</span><br/><span class="hl-0">    subgraph Main[&quot;Процесс интерфейса (Renderer)&quot;]</span><br/><span class="hl-0">        UI[&quot;Редактор, панели,&lt;br/&gt;строка состояния&quot;]</span><br/><span class="hl-0">        WV[&quot;Webview&lt;br/&gt;(изолированный iframe)&quot;]</span><br/><span class="hl-0">    end</span><br/><span class="hl-0">    subgraph Host[&quot;Extension Host (отдельный процесс Node.js)&quot;]</span><br/><span class="hl-0">        API[&quot;vscode API&quot;]</span><br/><span class="hl-0">        EXT[&quot;Расширение Code Diary&lt;br/&gt;out/extension.js&quot;]</span><br/><span class="hl-0">    end</span><br/><span class="hl-0">    UI &lt;-- &quot;RPC&quot; --&gt; API</span><br/><span class="hl-0">    API &lt;--&gt; EXT</span><br/><span class="hl-0">    EXT &lt;-- &quot;postMessage&quot; --&gt; WV</span>
+</code><button type="button">Copy</button></pre>
+
+<ol>
+<li><strong>Манифест <code>package.json</code></strong> описывает расширение декларативно:
+<ul>
+<li><code>main</code> — точка входа (<code>./out/extension.js</code>);</li>
+<li><code>activationEvents</code> — когда загружать код (<code>onStartupFinished</code>: после запуска редактора, чтобы не замедлять старт);</li>
+<li><code>contributes</code> — «точки расширения» интерфейса: <code>commands</code> (палитра команд), <code>viewsContainers</code> и <code>views</code> (значок на панели активности и дерево «Сводка»), <code>menus</code> (кнопки в заголовке панели), <code>configuration</code> (настройки в <code>settings.json</code>).
+VS Code читает манифест <strong>без запуска кода</strong>: команды и панели видны сразу, а код загружается лениво.</li>
+</ul>
+</li>
+<li><strong>Extension Host</strong> — отдельный процесс Node.js, где выполняются все расширения. Если расширение зависнет или упадёт, интерфейс редактора продолжит работать.</li>
+<li><strong>Функция <code>activate(context)</code></strong> вызывается один раз. В ней расширение регистрирует команды, подписывается на события и создаёт элементы интерфейса. Всё, что нужно освободить, кладётся в <code>context.subscriptions</code>.</li>
+<li><strong>API <code>vscode</code></strong> — единственный способ взаимодействия: события (<code>workspace.onDidChangeTextDocument</code>, <code>window.onDidChangeWindowState</code>…), элементы интерфейса (<code>createStatusBarItem</code>, <code>registerTreeDataProvider</code>, <code>createWebviewPanel</code>), хранилище (<code>context.globalStorageUri</code>).</li>
+<li><strong>Webview</strong> — HTML-страница в изолированном фрейме. Она не имеет доступа к Node.js и общается с расширением только сообщениями <code>postMessage</code>.</li>
+<li><strong>Функция <code>deactivate()</code></strong> вызывается при закрытии окна. Code Diary дописывает в ней данные на диск.</li>
+</ol>
+<hr>
+<h2 id="3-архитектура-плагина" class="tsd-anchor-link">3. Архитектура плагина<a href="#3-архитектура-плагина" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="mermaid"><span class="hl-0">flowchart TB</span><br/><span class="hl-0">    subgraph VS[&quot;VS Code&quot;]</span><br/><span class="hl-0">        EV[&quot;События редактора&lt;br/&gt;печать · курсор · прокрутка ·&lt;br/&gt;смена файла · сохранение · фокус окна&quot;]</span><br/><span class="hl-0">        SB[&quot;Строка состояния&quot;]</span><br/><span class="hl-0">        TV[&quot;Панель «Сводка»&quot;]</span><br/><span class="hl-0">        WP[&quot;Вкладка дашборда&lt;br/&gt;(webview)&quot;]</span><br/><span class="hl-0">        FS[(&quot;globalStorage/&lt;br/&gt;diary.json&quot;)]</span><br/><span class="hl-0">    end</span><br/><br/><span class="hl-0">    subgraph Tracker[&quot;tracker/&quot;]</span><br/><span class="hl-0">        AT[&quot;ActivityTracker&lt;br/&gt;подписки на события,&lt;br/&gt;RingBuffer скорости печати&quot;]</span><br/><span class="hl-0">    end</span><br/><br/><span class="hl-0">    subgraph Core[&quot;core/ — чистая логика, без vscode&quot;]</span><br/><span class="hl-0">        SM[&quot;SessionStateMachine&lt;br/&gt;idle · active · paused&quot;]</span><br/><span class="hl-0">        DI[&quot;Diary&lt;br/&gt;Map&amp;lt;дата, DayRecord&amp;gt;&quot;]</span><br/><span class="hl-0">        IV[&quot;intervals&lt;br/&gt;merge · insert · бинпоиск&quot;]</span><br/><span class="hl-0">        ST[&quot;statistics&lt;br/&gt;серия · фокус · квантили ·&lt;br/&gt;тепловая карта · топ-K&quot;]</span><br/><span class="hl-0">        MH[&quot;MinHeap / topK&quot;]</span><br/><span class="hl-0">        RP[&quot;report&lt;br/&gt;Markdown&quot;]</span><br/><span class="hl-0">        DM[&quot;demoData&lt;br/&gt;Mulberry32&quot;]</span><br/><span class="hl-0">    end</span><br/><br/><span class="hl-0">    subgraph Storage[&quot;storage/&quot;]</span><br/><span class="hl-0">        RE[&quot;DiaryRepository&lt;br/&gt;очередь записи,&lt;br/&gt;слияние окон, бэкап&quot;]</span><br/><span class="hl-0">    end</span><br/><br/><span class="hl-0">    subgraph UI[&quot;ui/&quot;]</span><br/><span class="hl-0">        SBC[&quot;StatusBarController&quot;]</span><br/><span class="hl-0">        STP[&quot;SummaryTreeProvider&quot;]</span><br/><span class="hl-0">        DP[&quot;DashboardPanel&quot;]</span><br/><span class="hl-0">    end</span><br/><br/><span class="hl-0">    EV --&gt; AT --&gt; SM -- &quot;Segment&quot; --&gt; RE</span><br/><span class="hl-0">    RE &lt;--&gt; FS</span><br/><span class="hl-0">    RE --&gt; DI</span><br/><span class="hl-0">    DI --&gt; IV</span><br/><span class="hl-0">    DI --&gt; ST</span><br/><span class="hl-0">    ST --&gt; MH</span><br/><span class="hl-0">    ST --&gt; SBC --&gt; SB</span><br/><span class="hl-0">    ST --&gt; STP --&gt; TV</span><br/><span class="hl-0">    ST --&gt; DP &lt;--&gt; WP</span><br/><span class="hl-0">    ST --&gt; RP</span><br/><span class="hl-0">    DM --&gt; RE</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Поток данных</strong></p>
+<ol>
+<li>Пользователь печатает → VS Code генерирует событие → <code>ActivityTracker</code> превращает его в <em>heartbeat</em> с контекстом <code>{файл, язык, проект}</code>.</li>
+<li><code>SessionStateMachine</code> решает: продолжить текущий сегмент, закрыть его (простой, смена файла, потеря фокуса) или открыть новый.</li>
+<li>Закрытый <code>Segment</code> уходит в <code>DiaryRepository</code>: сразу применяется к <code>Diary</code> в памяти и через 2 с пачкой пишется на диск.</li>
+<li><code>Diary.addSegment</code> режет сегмент по границам часов (и дней), вставляет интервалы с объединением пересечений, прибавляет время к языку, файлу, проекту и часу.</li>
+<li>Раз в 10 с (и при каждом изменении) <code>computeDashboard</code> пересчитывает статистику, и интерфейс обновляется: строка состояния, дерево, дашборд. Ещё не закрытый сегмент добавляется к копии дневника, поэтому счётчик идёт «вживую».</li>
+</ol>
+<p><strong>Модули</strong></p>
+<table>
+<thead>
+<tr>
+<th>Модуль</th>
+<th>Ответственность</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>extension.ts</code></td>
+<td>Точка входа: создаёт компоненты, связывает события, регистрирует 7 команд.</td>
+</tr>
+<tr>
+<td><code>core/types.ts</code></td>
+<td>Типы: <code>Interval</code>, <code>Segment</code>, <code>DayRecord</code>, <code>DiaryData</code>, <code>StatsRange</code>.</td>
+</tr>
+<tr>
+<td><code>core/time.ts</code></td>
+<td>Ключи дней, сдвиг дат, границы часов, форматирование <code>2ч 14м</code>, склонения, разбор ввода цели.</td>
+</tr>
+<tr>
+<td><code>core/intervals.ts</code></td>
+<td>Слияние, вставка с бинарным поиском, обрезка интервалов.</td>
+</tr>
+<tr>
+<td><code>core/RingBuffer.ts</code></td>
+<td>Кольцевой буфер для скорости печати.</td>
+</tr>
+<tr>
+<td><code>core/MinHeap.ts</code></td>
+<td>Двоичная куча и выбор топ-K.</td>
+</tr>
+<tr>
+<td><code>core/SessionStateMachine.ts</code></td>
+<td>Конечный автомат сессий.</td>
+</tr>
+<tr>
+<td><code>core/Diary.ts</code></td>
+<td>Модель данных и раскладка сегментов по дням и часам; валидация при загрузке.</td>
+</tr>
+<tr>
+<td><code>core/statistics.ts</code></td>
+<td>Все показатели дашборда.</td>
+</tr>
+<tr>
+<td><code>core/report.ts</code></td>
+<td>Недельный отчёт в Markdown.</td>
+</tr>
+<tr>
+<td><code>core/demoData.ts</code></td>
+<td>Генератор воспроизводимых демо-данных.</td>
+</tr>
+<tr>
+<td><code>tracker/ActivityTracker.ts</code></td>
+<td>Мост «события VS Code → автомат».</td>
+</tr>
+<tr>
+<td><code>storage/DiaryRepository.ts</code></td>
+<td>Чтение и запись <code>diary.json</code>, очередь, резервная копия, восстановление после повреждения.</td>
+</tr>
+<tr>
+<td><code>ui/StatusBarController.ts</code></td>
+<td>Элемент строки состояния и подсказка с командными ссылками.</td>
+</tr>
+<tr>
+<td><code>ui/SummaryTreeProvider.ts</code></td>
+<td>Дерево «Сводка» (<code>TreeDataProvider</code>).</td>
+</tr>
+<tr>
+<td><code>ui/DashboardPanel.ts</code></td>
+<td>Webview-панель, CSP, обмен сообщениями.</td>
+</tr>
+<tr>
+<td><code>media/dashboard.js/.css</code></td>
+<td>Отрисовка дашборда внутри webview.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-автомат-учёта-времени" class="tsd-anchor-link">4. Автомат учёта времени<a href="#4-автомат-учёта-времени" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="mermaid"><span class="hl-0">stateDiagram-v2</span><br/><span class="hl-0">    [*] --&gt; idle</span><br/><span class="hl-0">    idle --&gt; active: heartbeat (открыть сегмент)</span><br/><span class="hl-0">    active --&gt; active: heartbeat в том же файле (продлить)</span><br/><span class="hl-0">    active --&gt; active: heartbeat в другом файле (закрыть + открыть)</span><br/><span class="hl-0">    active --&gt; idle: тишина &gt; таймаута (закрыть на последнем действии)</span><br/><span class="hl-0">    active --&gt; idle: окно потеряло фокус</span><br/><span class="hl-0">    idle --&gt; paused: pause</span><br/><span class="hl-0">    active --&gt; paused: pause (закрыть)</span><br/><span class="hl-0">    paused --&gt; idle: resume</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Ключевая идея: сегмент закрывается в момент <strong>последнего действия</strong>, а не в момент
+обнаружения тишины. Если пользователь ушёл на 20 минут, в статистику не попадёт ни секунды
+из этих 20 минут.</p>
+<p>Раз в минуту длинный сегмент «чекпойнтится»: его уже прошедшая часть записывается, а
+сегмент продолжается. Если редактор упадёт, потеряется не больше минуты.</p>
+<hr>
+<h2 id="5-структуры-данных-и-алгоритмы" class="tsd-anchor-link">5. Структуры данных и алгоритмы<a href="#5-структуры-данных-и-алгоритмы" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<table>
+<thead>
+<tr>
+<th>Где</th>
+<th>Структура / алгоритм</th>
+<th>Сложность</th>
+<th>Зачем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Diary</code></td>
+<td>Хеш-таблица <code>Map&lt;дата, DayRecord&gt;</code></td>
+<td>O(1) доступ к дню</td>
+<td>Быстрый доступ к любому дню.</td>
+</tr>
+<tr>
+<td><code>DayRecord.intervals</code></td>
+<td>Отсортированный список непересекающихся интервалов</td>
+<td>—</td>
+<td>Время дня без двойного счёта.</td>
+</tr>
+<tr>
+<td><code>insertInterval</code></td>
+<td>Бинарный поиск + поглощение соседей</td>
+<td>O(log n + k)</td>
+<td>Вставка нового отрезка с объединением.</td>
+</tr>
+<tr>
+<td><code>mergeIntervals</code></td>
+<td>Сортировка + один проход</td>
+<td>O(n log n)</td>
+<td>Объединение отрезков в сессии с допустимым перерывом.</td>
+</tr>
+<tr>
+<td><code>SessionStateMachine</code></td>
+<td>Конечный автомат</td>
+<td>O(1) на событие</td>
+<td>Превращение потока событий в сегменты.</td>
+</tr>
+<tr>
+<td><code>RingBuffer</code></td>
+<td>Кольцевой буфер</td>
+<td>O(1) вставка</td>
+<td>Последние нажатия для скорости печати за минуту.</td>
+</tr>
+<tr>
+<td><code>MinHeap</code> + <code>topK</code></td>
+<td>Двоичная куча размера k</td>
+<td>O(n log k)</td>
+<td>Топ языков, файлов, проектов.</td>
+</tr>
+<tr>
+<td><code>computeStreak</code></td>
+<td>Множество <code>Set</code> + проход по датам</td>
+<td>O(d log d)</td>
+<td>Текущая и рекордная серии.</td>
+</tr>
+<tr>
+<td><code>computeHeatmap</code></td>
+<td>Сетка 53×7 + квартили</td>
+<td>O(d log d)</td>
+<td>Уровни яркости тепловой карты подстраиваются под пользователя.</td>
+</tr>
+<tr>
+<td><code>quantile</code></td>
+<td>Линейная интерполяция</td>
+<td>O(1)</td>
+<td>Границы уровней.</td>
+</tr>
+<tr>
+<td><code>parseDurationToMinutes</code></td>
+<td>Регулярные выражения</td>
+<td>O(len)</td>
+<td>Ввод цели «1ч 30м», «1:30», «90».</td>
+</tr>
+<tr>
+<td><code>mulberry32</code></td>
+<td>ГПСЧ с зерном</td>
+<td>O(1)</td>
+<td>Воспроизводимые демо-данные.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Пример: объединение интервалов (<code>mergeIntervals</code>)</strong></p>
+<pre><code><span class="hl-1">вход</span><span class="hl-0">:   [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">3</span><span class="hl-0">] [</span><span class="hl-2">2</span><span class="hl-0">,</span><span class="hl-2">6</span><span class="hl-0">] [</span><span class="hl-2">8</span><span class="hl-0">,</span><span class="hl-2">10</span><span class="hl-0">] [</span><span class="hl-2">15</span><span class="hl-0">,</span><span class="hl-2">18</span><span class="hl-0">]</span><br/><span class="hl-3">сорт</span><span class="hl-0">.:  [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">3</span><span class="hl-0">] [</span><span class="hl-2">2</span><span class="hl-0">,</span><span class="hl-2">6</span><span class="hl-0">] [</span><span class="hl-2">8</span><span class="hl-0">,</span><span class="hl-2">10</span><span class="hl-0">] [</span><span class="hl-2">15</span><span class="hl-0">,</span><span class="hl-2">18</span><span class="hl-0">]</span><br/><span class="hl-3">шаг</span><span class="hl-0"> </span><span class="hl-2">1</span><span class="hl-0">:  </span><span class="hl-3">результат</span><span class="hl-0"> = [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">3</span><span class="hl-0">]</span><br/><span class="hl-3">шаг</span><span class="hl-0"> </span><span class="hl-2">2</span><span class="hl-0">:  [</span><span class="hl-2">2</span><span class="hl-0">,</span><span class="hl-2">6</span><span class="hl-0">] </span><span class="hl-3">начинается</span><span class="hl-0"> </span><span class="hl-3">до</span><span class="hl-0"> </span><span class="hl-3">конца</span><span class="hl-0"> [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">3</span><span class="hl-0">] → </span><span class="hl-3">расширяем</span><span class="hl-0"> </span><span class="hl-3">до</span><span class="hl-0"> [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">6</span><span class="hl-0">]</span><br/><span class="hl-3">шаг</span><span class="hl-0"> </span><span class="hl-2">3</span><span class="hl-0">:  [</span><span class="hl-2">8</span><span class="hl-0">,</span><span class="hl-2">10</span><span class="hl-0">] </span><span class="hl-3">начинается</span><span class="hl-0"> </span><span class="hl-3">после</span><span class="hl-0"> </span><span class="hl-2">6</span><span class="hl-0"> → </span><span class="hl-3">новый</span><span class="hl-0"> </span><span class="hl-3">интервал</span><br/><span class="hl-3">шаг</span><span class="hl-0"> </span><span class="hl-2">4</span><span class="hl-0">:  [</span><span class="hl-2">15</span><span class="hl-0">,</span><span class="hl-2">18</span><span class="hl-0">] → </span><span class="hl-3">новый</span><span class="hl-0"> </span><span class="hl-3">интервал</span><br/><span class="hl-1">выход</span><span class="hl-0">:  [</span><span class="hl-2">1</span><span class="hl-0">,</span><span class="hl-2">6</span><span class="hl-0">] [</span><span class="hl-2">8</span><span class="hl-0">,</span><span class="hl-2">10</span><span class="hl-0">] [</span><span class="hl-2">15</span><span class="hl-0">,</span><span class="hl-2">18</span><span class="hl-0">]</span>
+</code><button>Copy</button></pre>
+
+<p><strong>Пример: серия дней (<code>computeStreak</code>).</strong> Активные дни: 20, 21, 22, 23, 26, 27, 28, 29 октября,
+сегодня 30-е и ещё не начато. Текущая серия считается от вчера: 29, 28, 27, 26, получается 4.
+Рекорд — самая длинная цепочка подряд, тоже 4. Как только сегодня появится минута работы,
+серия станет 5.</p>
+<p><strong>Пример: фокус.</strong> Сессии за день: 40 мин и 10 мин. Сессия фокуса — от 25 мин. Значит, фокус
+= 40 / (40 + 10) = 80%.</p>
+<hr>
+<h2 id="6-формат-хранения" class="tsd-anchor-link">6. Формат хранения<a href="#6-формат-хранения" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Файл <code>diary.json</code> в <code>context.globalStorageUri</code> (общий для всех окон VS Code):</p>
+<pre><code class="json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-4">&quot;version&quot;</span><span class="hl-0">: </span><span class="hl-2">1</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">&quot;days&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">    </span><span class="hl-4">&quot;2026-10-30&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;date&quot;</span><span class="hl-0">: </span><span class="hl-5">&quot;2026-10-30&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;intervals&quot;</span><span class="hl-0">: [[</span><span class="hl-2">1793347145925</span><span class="hl-0">, </span><span class="hl-2">1793347152014</span><span class="hl-0">]],</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;languages&quot;</span><span class="hl-0">: { </span><span class="hl-4">&quot;typescript&quot;</span><span class="hl-0">: </span><span class="hl-2">6089</span><span class="hl-0"> },</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;files&quot;</span><span class="hl-0">: { </span><span class="hl-4">&quot;lab3/src/extension.ts&quot;</span><span class="hl-0">: </span><span class="hl-2">6089</span><span class="hl-0"> },</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;projects&quot;</span><span class="hl-0">: { </span><span class="hl-4">&quot;lab3&quot;</span><span class="hl-0">: </span><span class="hl-2">6089</span><span class="hl-0"> },</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;hours&quot;</span><span class="hl-0">: [</span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">6089</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">, </span><span class="hl-2">0</span><span class="hl-0">],</span><br/><span class="hl-0">      </span><span class="hl-4">&quot;chars&quot;</span><span class="hl-0">: </span><span class="hl-2">175</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Все длительности указаны в миллисекундах. Сырые события не хранятся, только агрегаты по дням:
+год активной работы занимает порядка сотен килобайт.</p>
+<p><strong>Несколько окон VS Code.</strong> Перед каждой записью репозиторий перечитывает файл и добавляет
+к свежей версии только новые сегменты своего окна. Если два окна учли один и тот же отрезок,
+<code>insertInterval</code> объединит его, и время не удвоится.</p>
+<hr>
+<h2 id="7-команды-и-настройки" class="tsd-anchor-link">7. Команды и настройки<a href="#7-команды-и-настройки" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<table>
+<thead>
+<tr>
+<th>Команда (палитра <code>Ctrl/Cmd+Shift+P</code>)</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Code Diary: Открыть дашборд</code></td>
+<td>Вкладка со статистикой (также клик по строке состояния).</td>
+</tr>
+<tr>
+<td><code>Code Diary: Задать цель на день</code></td>
+<td>Ввод цели: <code>90</code>, <code>1:30</code>, <code>2ч</code>, <code>1ч 30м</code>, <code>1.5h</code>.</td>
+</tr>
+<tr>
+<td><code>Code Diary: Пауза / продолжить учёт</code></td>
+<td>Временно выключает учёт.</td>
+</tr>
+<tr>
+<td><code>Code Diary: Экспорт недельного отчёта (Markdown)</code></td>
+<td>Открывает отчёт за 7 дней в новом документе.</td>
+</tr>
+<tr>
+<td><code>Code Diary: Заполнить демо-данными</code></td>
+<td>Год правдоподобной истории (текущие данные уходят в резервную копию).</td>
+</tr>
+<tr>
+<td><code>Code Diary: Восстановить данные из резервной копии</code></td>
+<td>Отменяет последнюю замену данных.</td>
+</tr>
+<tr>
+<td><code>Code Diary: Очистить все данные</code></td>
+<td>Удаляет статистику (с резервной копией).</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Настройка</th>
+<th>По умолчанию</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codeDiary.dailyGoalMinutes</code></td>
+<td><code>120</code></td>
+<td>Цель на день, минуты.</td>
+</tr>
+<tr>
+<td><code>codeDiary.idleTimeoutMinutes</code></td>
+<td><code>2</code></td>
+<td>Тишина, после которой сессия завершается.</td>
+</tr>
+<tr>
+<td><code>codeDiary.focusSessionMinutes</code></td>
+<td><code>25</code></td>
+<td>Минимальная длина сессии фокуса.</td>
+</tr>
+<tr>
+<td><code>codeDiary.showStatusBar</code></td>
+<td><code>true</code></td>
+<td>Показывать элемент в строке состояния.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-сборка-запуск-тесты-документация" class="tsd-anchor-link">8. Сборка, запуск, тесты, документация<a href="#8-сборка-запуск-тесты-документация" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Требуется Node.js 18+ и VS Code 1.90+.</p>
+<pre><code class="bash"><span class="hl-6">npm</span><span class="hl-0"> </span><span class="hl-5">install</span><span class="hl-0">          </span><span class="hl-7"># зависимости разработки</span><br/><span class="hl-6">npm</span><span class="hl-0"> </span><span class="hl-5">run</span><span class="hl-0"> </span><span class="hl-5">compile</span><span class="hl-0">      </span><span class="hl-7"># TypeScript → out/</span><br/><span class="hl-6">npm</span><span class="hl-0"> </span><span class="hl-5">test</span><span class="hl-0">             </span><span class="hl-7"># 53 модульных теста ядра (node:test)</span><br/><span class="hl-6">npm</span><span class="hl-0"> </span><span class="hl-5">run</span><span class="hl-0"> </span><span class="hl-5">docs</span><span class="hl-0">         </span><span class="hl-7"># HTML-документация TypeDoc → docs/api</span><br/><span class="hl-6">npm</span><span class="hl-0"> </span><span class="hl-5">run</span><span class="hl-0"> </span><span class="hl-5">package</span><span class="hl-0">      </span><span class="hl-7"># сборка устанавливаемого файла code-diary-1.0.0.vsix</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Запуск в режиме разработки:</strong> открыть папку проекта в VS Code и нажать <strong>F5</strong>.
+Откроется окно <em>Extension Development Host</em> с подключённым плагином.</p>
+<p><strong>Установка готового плагина:</strong> <code>code --install-extension code-diary-1.0.0.vsix</code>
+или в VS Code: <em>Extensions → … → Install from VSIX</em>.</p>
+<hr>
+<h2 id="9-структура-репозитория" class="tsd-anchor-link">9. Структура репозитория<a href="#9-структура-репозитория" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code><span class="hl-0">├── </span><span class="hl-3">package</span><span class="hl-0">.</span><span class="hl-3">json</span><span class="hl-0">            </span><span class="hl-3">манифест</span><span class="hl-0"> </span><span class="hl-6">расширения</span><span class="hl-0"> (</span><span class="hl-3">contribution</span><span class="hl-0"> </span><span class="hl-3">points</span><span class="hl-0">)</span><br/><span class="hl-0">├── </span><span class="hl-3">tsconfig</span><span class="hl-0">.</span><span class="hl-3">json</span><span class="hl-0">           </span><span class="hl-3">настройки</span><span class="hl-0"> </span><span class="hl-3">компилятора</span><br/><span class="hl-0">├── </span><span class="hl-3">typedoc</span><span class="hl-0">.</span><span class="hl-3">json</span><span class="hl-0">            </span><span class="hl-3">настройки</span><span class="hl-0"> </span><span class="hl-3">генератора</span><span class="hl-0"> </span><span class="hl-3">документации</span><br/><span class="hl-0">├── </span><span class="hl-3">media</span><span class="hl-0">/</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">activity</span><span class="hl-0">.</span><span class="hl-3">svg</span><span class="hl-0">        </span><span class="hl-3">значок</span><span class="hl-0"> </span><span class="hl-3">на</span><span class="hl-0"> </span><span class="hl-3">панели</span><span class="hl-0"> </span><span class="hl-3">активности</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">dashboard</span><span class="hl-0">.</span><span class="hl-3">css</span><span class="hl-0">       </span><span class="hl-3">стили</span><span class="hl-0"> </span><span class="hl-6">дашборда</span><span class="hl-0"> (</span><span class="hl-3">переменные</span><span class="hl-0"> </span><span class="hl-3">темы</span><span class="hl-0"> </span><span class="hl-8">VS</span><span class="hl-0"> </span><span class="hl-3">Code</span><span class="hl-0">)</span><br/><span class="hl-0">│   └── </span><span class="hl-3">dashboard</span><span class="hl-0">.</span><span class="hl-3">js</span><span class="hl-0">        </span><span class="hl-3">отрисовка</span><span class="hl-0"> </span><span class="hl-3">дашборда</span><span class="hl-0"> </span><span class="hl-3">в</span><span class="hl-0"> </span><span class="hl-3">webview</span><br/><span class="hl-0">├── </span><span class="hl-3">src</span><span class="hl-0">/</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">extension</span><span class="hl-0">.</span><span class="hl-3">ts</span><span class="hl-0">        </span><span class="hl-3">точка</span><span class="hl-0"> </span><span class="hl-1">входа</span><span class="hl-0">: </span><span class="hl-3">activate</span><span class="hl-0"> / </span><span class="hl-3">deactivate</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">core</span><span class="hl-0">/               </span><span class="hl-3">чистая</span><span class="hl-0"> </span><span class="hl-6">логика</span><span class="hl-0"> (</span><span class="hl-3">без</span><span class="hl-0"> </span><span class="hl-3">vscode</span><span class="hl-0">), </span><span class="hl-3">покрыта</span><span class="hl-0"> </span><span class="hl-3">тестами</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">tracker</span><span class="hl-0">/            </span><span class="hl-3">подписка</span><span class="hl-0"> </span><span class="hl-3">на</span><span class="hl-0"> </span><span class="hl-3">события</span><span class="hl-0"> </span><span class="hl-3">редактора</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">storage</span><span class="hl-0">/            </span><span class="hl-3">чтение</span><span class="hl-0">/</span><span class="hl-3">запись</span><span class="hl-0"> </span><span class="hl-3">diary</span><span class="hl-0">.</span><span class="hl-3">json</span><br/><span class="hl-0">│   ├── </span><span class="hl-3">ui</span><span class="hl-0">/                 </span><span class="hl-3">строка</span><span class="hl-0"> </span><span class="hl-3">состояния</span><span class="hl-0">, </span><span class="hl-3">дерево</span><span class="hl-0">, </span><span class="hl-3">webview</span><br/><span class="hl-0">│   └── </span><span class="hl-3">test</span><span class="hl-0">/               </span><span class="hl-3">модульные</span><span class="hl-0"> </span><span class="hl-3">тесты</span><br/><span class="hl-0">├── </span><span class="hl-3">docs</span><span class="hl-0">/</span><span class="hl-3">api</span><span class="hl-0">/               </span><span class="hl-3">сгенерированная</span><span class="hl-0"> </span><span class="hl-3">документация</span><span class="hl-0"> </span><span class="hl-3">TypeDoc</span><br/><span class="hl-0">├── </span><span class="hl-8">README</span><span class="hl-0">.</span><span class="hl-3">md</span><span class="hl-0">               </span><span class="hl-3">описание</span><span class="hl-0">, </span><span class="hl-3">авторство</span><span class="hl-0">, </span><span class="hl-3">возможности</span><br/><span class="hl-0">└── </span><span class="hl-8">DOCUMENTATION</span><span class="hl-0">.</span><span class="hl-3">md</span><span class="hl-0">        </span><span class="hl-3">этот</span><span class="hl-0"> </span><span class="hl-3">файл</span>
+</code><button>Copy</button></pre>
+
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details"><a href="#code-diary-документация-проекта"><span>Code <wbr/>Diary — документация проекта</span></a>
+<ul>
+<li><a href="#содержание"><span>Содержание</span></a></li>
+<li><a href="#1-техническое-задание"><span>1. Техническое задание</span></a></li>
+<li><a href="#2-как-vs-code-подключает-расширения"><span>2. Как <wbr/>VS <wbr/>Code подключает расширения</span></a></li>
+<li><a href="#3-архитектура-плагина"><span>3. Архитектура плагина</span></a></li>
+<li><a href="#4-автомат-учёта-времени"><span>4. Автомат учёта времени</span></a></li>
+<li><a href="#5-структуры-данных-и-алгоритмы"><span>5. Структуры данных и алгоритмы</span></a></li>
+<li><a href="#6-формат-хранения"><span>6. Формат хранения</span></a></li>
+<li><a href="#7-команды-и-настройки"><span>7. Команды и настройки</span></a></li>
+<li><a href="#8-сборка-запуск-тесты-документация"><span>8. Сборка, запуск, тесты, документация</span></a></li>
+<li><a href="#9-структура-репозитория"><span>9. Структура репозитория</span></a></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html">Code Diary — API - v1.0.0</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

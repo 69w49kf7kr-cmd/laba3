@@ -1,0 +1,15 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "Code Diary — API",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["src/test/**"],
+  "out": "docs/api",
+  "readme": "DOCUMENTATION.md",
+  "excludePrivate": false,
+  "includeVersion": true,
+  "externalSymbolLinkMappings": {
+    "@types/vscode": { "*": "https://code.visualstudio.com/api/references/vscode-api" }
+  },
+  "highlightLanguages": ["typescript", "javascript", "json", "bash", "mermaid"]
+}

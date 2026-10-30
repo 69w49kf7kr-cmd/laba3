@@ -1,0 +1,13 @@
+.vscode/**
+src/**
+docs/**
+report/**
+out/test/**
+**/*.map
+**/*.ts
+tsconfig.json
+typedoc.json
+ЗАЩИТА.md
+.gitignore
+images/**
+DOCUMENTATION.md
