@@ -277,8 +277,3 @@ npm run compile
 ### Документация
 - [DOCUMENTATION.md](DOCUMENTATION.md) — ТЗ, архитектура VS Code и плагина, диаграммы, алгоритмы, формат данных
 - `docs/api/index.html` — HTML-документация по всем классам и функциям (TypeDoc, `npm run docs`)
-
----
-
-## история в хэшах:
-<!-- после загрузки на GitHub вставьте сюда вывод `git log --oneline` -->
